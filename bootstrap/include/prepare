@@ -1,0 +1,36 @@
+#!/bin/bash
+
+
+export TOOLS_STRIP=0 # 1=tools strip
+export WAIT=0
+export MakeTests=0
+
+export ROOT=$HOME/antikc
+export LFS=$ROOT
+export LC_ALL=POSIX
+export LFS_TGT=$(uname -m)-lfs-linux-gnu
+# export MAKEFLAGS='-j 3' #number of procesor cores
+
+export PREFIX32=$ROOT/32bit
+export PREFIX64=$ROOT/32bit
+export on64=1 #only if you building 32bit on 64bit machine
+# Target 32-bit build on 32 or 64-bit redhat
+export PATH=$PREFIX32/bin:/bin:/usr/bin
+export CC="gcc -m32"
+export CFLAGS="-m32"
+export LDFLAGS="-L$PREFIX32/lib:/lib:/usr/lib -Wl,-rpath,$PREFIX32/lib:/lib:/usr/lib"
+
+export BOOTSTRAP=$ROOT/bootstrap
+export SOURCES_DIR=$BOOTSTRAP/sources
+export BUILD_DIR=$BOOTSTRAP/build
+export TOOLS_DIR=$BOOTSTRAP/tools
+export SCRIPTS_DIR=$BOOTSTRAP/scripts
+
+echo -e "$L_CH_DIR"
+
+testExDir $SOURCES_DIR
+testExDir $BUILD_DIR
+testExDir $TOOLS_DIR
+testExDir $SCRIPTS_DIR
+# testSimLink /tools $LFS/tools /
+cd $BOOTSTRAP

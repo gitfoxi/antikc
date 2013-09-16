@@ -1,0 +1,166 @@
+#!/bin/bash
+
+export ROOT=/
+#LC_ALL=POSIX
+#LFS_TGT=$(uname -m)-lfs-linux-gnu
+#PATH=/tools/bin:/bin:/usr/bin
+#export LFS LC_ALL LFS_TGT PATH
+export WAIT=1
+export MakeTests=0
+export on64=0 #only if you building 32bit on 64bit machine
+export SOURCES_DIR=/sources
+export BUILD_DIR=/build
+export TOOLS_DIR=/tools
+export SCRIPTS_DIR=/scripts
+export MAKEFLAGS='-j 3' #number of procesor cores
+
+if [ -e $SCRIPTS_DIR/prepareTestVar ];
+	then
+		echo "$G Making simlinks and folders was alredy done $DEF"
+		echo "$R If not remove file $SCRIPTS_DIR/prepareTestVar $DEF"
+	else
+if [ -e $SCRIPTS_DIR/prepareTestFirstVar ];
+	then
+		echo "$G Making /etc/passwd and /etc/group done $DEF"
+		echo "$R If not remove file $SCRIPTS_DIR/prepareTestFirstVar $DEF"
+		echo "$G Now making rest of folders $DEF"
+	else
+testExDir /bin
+testExDir /boot
+testExDir /etc
+testExDir /etc/opt
+testExDir /home
+testExDir /lib
+testExDir /mnt
+testExDir /opt
+testExDir /media
+testExDir /media/floppy
+testExDir /media/cdrom
+testExDir /sbin
+testExDir /srv
+testExDir /var
+install -dv -m 0750 /root
+install -dv -m 1777 /tmp /var/tmp
+testExDir /usr/local
+testExDir /usr/bin
+testExDir /usr/include
+testExDir /usr/lib
+testExDir /usr/sbin
+testExDir /usr/src
+testExDir /usr/local/bin
+testExDir /usr/local/include
+testExDir /usr/local/lib
+testExDir /usr/local/sbin
+testExDir /usr/local/src
+testExDir /usr/share/doc
+testExDir /usr/share/info
+testExDir /usr/share/locale
+testExDir /usr/share/man
+testExDir /usr/local/share/doc
+testExDir /usr/local/share/info
+testExDir /usr/local/share/locale
+testExDir /usr/local/share/man
+testExDir /usr/share/misc
+testExDir /usr/share/terminfo
+testExDir /usr/share/zoneinfo
+testExDir /usr/local/share/misc
+testExDir /usr/local/share/terminfo
+testExDir /usr/local/share/zoneinfo
+testExDir /usr/share/man/man1
+testExDir /usr/share/man/man2
+testExDir /usr/share/man/man3
+testExDir /usr/share/man/man4
+testExDir /usr/share/man/man5
+testExDir /usr/share/man/man6
+testExDir /usr/share/man/man7
+testExDir /usr/share/man/man8
+testExDir /usr/local/share/man/man1
+testExDir /usr/local/share/man/man2
+testExDir /usr/local/share/man/man3
+testExDir /usr/local/share/man/man4
+testExDir /usr/local/share/man/man5
+testExDir /usr/local/share/man/man6
+testExDir /usr/local/share/man/man7
+testExDir /usr/local/share/man/man8
+
+for dir in /usr /usr/local; do
+ln -sv share/{man,doc,info} $dir
+done
+
+case $(uname -m) in
+ x86_64) ln -sv lib /lib64 && ln -sv lib /usr/lib64 ;;
+esac
+
+testExDir /var/lock
+testExDir /var/log
+testExDir /var/mail
+testExDir /var/run
+testExDir /var/spool
+testExDir /var/opt
+testExDir /var/cache
+testExDir /var/lib
+testExDir /var/lib/misc
+testExDir /var/lib/locate
+testExDir /var/local
+
+waitUser
+
+ln -sv /tools/bin/{bash,cat,echo,pwd,stty} /bin
+ln -sv /tools/bin/perl /usr/bin
+ln -sv /tools/lib/libgcc_s.so{,.1} /usr/lib
+ln -sv /tools/lib/libstdc++.so{,.6} /usr/lib
+ln -sv bash /bin/sh
+
+echo -e "$C making mtab $DEF"
+echo -e "$G touch /etc/mtab $DEF"
+touch /etc/mtab
+
+echo -e "$C making /etc/passwd $DEF"
+cat > /etc/passwd << "EOF"
+root:x:0:0:root:/root:/bin/bash
+bin:x:1:1:bin:/dev/null:/bin/false
+nobody:x:99:99:Unprivileged User:/dev/null:/bin/false
+EOF
+
+echo -e "$C making /etc/group $DEF"
+cat > /etc/group << "EOF"
+root:x:0:
+bin:x:1:
+sys:x:2:
+kmem:x:3:
+tty:x:4:
+tape:x:5:
+daemon:x:6:
+floppy:x:7:
+disk:x:8:
+lp:x:9:
+dialout:x:10:
+audio:x:11:
+video:x:12:
+utmp:x:13:
+usb:x:14:
+cdrom:x:15:
+mail:x:34:
+nogroup:x:99:
+EOF
+
+	touch $SCRIPTS_DIR/prepareTestFirstVar
+	echo "$R Run /scripts/chroot_makeal again $DEF"
+	exec /tools/bin/bash --login +h
+fi
+
+echo -e "$C making log files $G utmp btmp lastlog wtmp $DEF"
+echo -e "$G touch /var/run/utmp /var/log/{btmp,lastlog,wtmp} $DEF"
+touch /var/run/utmp /var/log/{btmp,lastlog,wtmp}
+echo -e "$C changing group u $G utmp lastlog $DEF"
+echo -e "$G chgrp -v utmp /var/run/utmp /var/log/lastlog  $DEF"
+chgrp -v utmp /var/run/utmp /var/log/lastlog
+echo -e "$C changing ownership u $G utmp lastlog $DEF"
+echo -e "$G chmod -v 664 /var/run/utmp /var/log/lastlog $DEF"
+chmod -v 664 /var/run/utmp /var/log/lastlog
+
+touch $SCRIPTS_DIR/prepareTestVar
+ 
+fi
+
+cd $ROOT

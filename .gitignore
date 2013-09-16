@@ -20,3 +20,11 @@ _cgo_export.*
 _testmain.go
 
 *.exe
+
+# Ignore stuff in target directories
+32bit/*
+64bit/*
+
+# Vim swap files
+*.swp
+*.swo

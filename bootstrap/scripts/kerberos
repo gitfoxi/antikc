@@ -1,0 +1,45 @@
+#!/bin/bash
+
+NAME=${kerberos[0]}
+PROGRAM=${kerberos[3]}
+FILE=${kerberos[2]}
+EXT=${kerberos[4]}
+DLINK=${kerberos[1]}
+MD5=${kerberos[5]}
+
+download ${DLINK}
+
+waitUser
+
+check ${FILE} ${MD5}
+
+waitUser
+
+cd $BUILD_DIR
+tar xf $SOURCES_DIR/$FILE
+tar xfz krb5-1.11.3.tar.gz
+
+waitUser
+
+startBuild
+
+cd $BUILD_DIR/$PROGRAM
+{
+
+	./configure --prefix=$PREFIX32 || exit 1
+	StartMake
+	waitUser
+	make || exit 1
+	waitUser
+	c_MakeTest check || exit 1
+	StartMakeInstall
+	waitUser
+	make install || exit 1
+} 2>&1 | tee $BUILD_DIR/LOG_$PROGRAM.log
+if [ $PIPESTATUS -ne 0 ]
+	then
+		echo -e "$L_FAIL_BUIL"
+		exit 1
+fi  
+waitUser
+cd $ROOT

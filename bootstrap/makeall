@@ -1,0 +1,26 @@
+#!/bin/bash
+
+source include/functions
+source include/prepare
+source include/ver
+source include/l10n-EN
+
+####### Start builds of packages #######
+
+# kerberos is a complicated build. Do I really need it now?
+# source $SCRIPTS_DIR/kerberos
+
+source $SCRIPTS_DIR/openssl
+source $SCRIPTS_DIR/standard-build curl
+# TODO: git isn't installing manuals
+source $SCRIPTS_DIR/standard-build git
+source $SCRIPTS_DIR/standard-build python
+source $SCRIPTS_DIR/setuptools
+source $SCRIPTS_DIR/pip
+source $SCRIPTS_DIR/virtualenv
+
+echo "Success"
+echo "To start over from scratch, run like:"
+echo "    REBUILD_ALL=1 ./makeall"
+echo ""
+echo "To rebuild from a single package ... I dont know how to do that yet"

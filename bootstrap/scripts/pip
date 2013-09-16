@@ -1,0 +1,44 @@
+#!/bin/bash
+
+NAME=${pip[0]}
+PROGRAM=${pip[3]}
+FILE=${pip[2]}
+EXT=${pip[4]}
+DLINK=${pip[1]}
+MD5=${pip[5]}
+
+if [ $REBUILD_ALL ]; then
+    echo Building $PREFIX32/$NAME because REBUILD_ALL=$REBUILD_ALL
+elif [ -e $PREFIX32/$NAME ]; then
+    echo Skipping $PREFIX32/$NAME because we already have it
+    return
+else
+    echo Building $PREFIX32/$NAME because dont have it yet
+fi
+
+download ${DLINK}
+
+waitUser
+
+check ${FILE} ${MD5}
+
+waitUser
+
+unpack ${EXT}
+
+waitUser
+
+startBuild
+
+cd $BUILD_DIR/$PROGRAM
+{
+    $PREFIX32/bin/python2.7 get-pip.py
+	waitUser
+} 2>&1 | tee $BUILD_DIR/LOG_$PROGRAM.log
+if [ $PIPESTATUS -ne 0 ]
+	then
+		echo -e "$L_FAIL_BUIL"
+		exit 1
+fi  
+waitUser
+cd $ROOT

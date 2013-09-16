@@ -1,0 +1,321 @@
+#!/bin/bash
+
+DEF="$(tput sgr0)"
+BOLD="$(tput bold)"
+B="${BOLD}$(tput setaf 4)"
+G="${BOLD}$(tput setaf 2)"
+R="${BOLD}$(tput setaf 1)"
+Y="${BOLD}$(tput setaf 3)"
+C="${BOLD}$(tput setaf 6)"
+M="${BOLD}$(tput setaf 5)"
+
+# function chose what to be done with archive
+# parametr 1 file extension bzip or gzip
+# ordionary use unpack ${EXT}
+unpack(){
+if [ $1 == bzip ]; then
+      unpackBzip
+  elif [ $1 == gzip ]; then
+      unpackGzip
+  elif [ $1 == none ]; then
+      unpackNoCompression
+  else
+    echo "$R somethink went wrong with archive unpack $DEF";
+fi
+}
+export -f unpack
+
+#Function unpacking archive
+unpackBzip (){
+	echo "$Y Starting build script $PROGRAM $DEF";
+
+	if [ -d $BUILD_DIR/$PROGRAM ]; then
+	  echo "$C Directory with source already exist $G [REMOVING] $DEF"
+	  echo "$G rm -rf $BUILD_DIR/$PROGRAM $DEF"
+	  rm -rf $BUILD_DIR/$PROGRAM
+	  echo "$C Source directory $G [UNPACKING] $DEF"
+	  echo "$G tar xjf $SOURCES_DIR/$FILE -C $BUILD_DIR/ $DEF"
+	  tar xjf $SOURCES_DIR/$FILE -C $BUILD_DIR/
+	else
+	  echo "$C Source directory $G [UNPACKING] $DEF"
+	  echo "$G tar xjf $SOURCES_DIR/$FILE -C $BUILD_DIR/ $DEF"
+	  tar xjf $SOURCES_DIR/$FILE -C $BUILD_DIR/
+	fi
+}
+export -f unpackBzip
+
+#Function unpacking non-archive
+unpackNoCompression (){
+	echo "$Y Starting build script $PROGRAM $DEF";
+
+	if [ -d $BUILD_DIR/$PROGRAM ]; then
+	  echo "$C Directory with source already exist $G [REMOVING] $DEF"
+	  echo "$G rm -rf $BUILD_DIR/$PROGRAM $DEF"
+	  rm -rf $BUILD_DIR/$PROGRAM
+	  echo "$C Source directory $G [UNPACKING] $DEF"
+      mkdir -p $BUILD_DIR/$PROGRAM
+	  echo "$G cp $SOURCES_DIR/$FILE $BUILD_DIR/$PROGRAM/ $DEF"
+	  cp $SOURCES_DIR/$FILE $BUILD_DIR/$PROGRAM/
+	else
+	  echo "$C Source directory $G [UNPACKING] $DEF"
+      mkdir -p $BUILD_DIR/$PROGRAM
+	  echo "$G cp $SOURCES_DIR/$FILE $BUILD_DIR/$PROGRAM/ $DEF"
+	  cp $SOURCES_DIR/$FILE $BUILD_DIR/$PROGRAM/
+	fi
+}
+
+export -f unpackNoCompression
+#Function unpacking archive
+unpackGzip (){
+	echo "$Y Starting build script $PROGRAM $DEF";
+
+	if [ -d $BUILD_DIR/$PROGRAM ]; then
+	  echo "$C Directory with source already exist $G [REMOVING] $DEF"
+	  echo "$G rm -rf $BUILD_DIR/$PROGRAM $DEF"
+	  rm -rf $BUILD_DIR/$PROGRAM
+	  echo "$C Source directory $G [UNPACKING] $DEF"
+	  echo "$G tar xzf $SOURCES_DIR/$FILE -C $BUILD_DIR/ $DEF"
+	  tar xzf $SOURCES_DIR/$FILE -C $BUILD_DIR/
+	else
+	  echo "$C Source directory $G [UNPACKING] $DEF"
+	  echo "$G tar xzf $SOURCES_DIR/$FILE -C $BUILD_DIR/ $DEF"
+	  tar xzf $SOURCES_DIR/$FILE -C $BUILD_DIR/
+	fi
+}
+export -f unpackGzip
+
+#Function for prepare to separate build
+SepBuild (){
+	echo "$Y Preparing for separate build $PROGRAM $DEF";
+
+	if [ -d $BUILD_DIR/$NAME-BUILD ]; then
+	  echo "$C Build directory already exist $G [REMOVING] $DEF"
+	  echo "$G rm -rf $BUILD_DIR/$NAME-BUILD $DEF"
+	  rm -rf $BUILD_DIR/$NAME-BUILD
+	else
+	  echo "$M.$DEF"
+	fi
+
+	echo "$C Making directory for separate build $DEF"
+	echo "$G mkdir $BUILD_DIR/$NAME-BUILD $DEF"
+	mkdir $BUILD_DIR/$NAME-BUILD
+}
+export -f SepBuild
+
+#test if existing directory for mpfr gmp mpc
+gccSupProgTest(){
+  if [ -d $BUILD_DIR/$PROGRAM ]; then
+    echo -e "$C Directory with source already exist $G [REMOVING] $DEF"
+    echo -e "$G rm -rf $BUILD_DIR/$PROGRAM $DEF"
+    rm -rf $BUILD_DIR/$PROGRAM
+  else
+    echo -e "$M.$DEF"
+  fi
+  if [ -d $BUILD_DIR/$NAME ]; then
+      echo -e "$C Directory with source already exist $G [REMOVING] $DEF"
+      echo -e "$G rm -rf $BUILD_DIR/$NAME $DEF"
+      rm -rf $BUILD_DIR/$NAME
+    else
+      echo -e "$M.$DEF"
+  fi
+}
+export -f gccSupProgTest
+
+#function testing if directory exist if not make directory
+#parameter= directory
+testExDir (){
+	if [ -d $1 ]; then
+	  echo "$C Directory $1 exist"
+	else
+	  echo "$C Directory $1 not exist $DEF"
+	  echo "$G mkdir -p $1 $DEF"
+	  mkdir -vp $1
+	fi
+}
+export -f testExDir
+
+#function testing simlink
+#parameters first=symbolic link for test
+#second=source file\dir
+#third=destination dir
+#example: testSimLink /home/user/LFS /home/user/test/LFS /home/user/
+testSimLink (){ 
+	if [ -L $1 ]; then
+	  echo "$C Symbolic link $1 exist $DEF"
+	else
+	  echo "$C Symbolic link $G $1 $C not exist $DEF"
+	  echo "Making symbolic link $G $1 $DEF"
+	  echo "$G ln -s $2 $3 $DEF"
+	  ln -sv $2 $3
+	fi
+}
+export -f testSimLink
+
+#function create simlink
+#firts: source file\dir
+#second:destination dir
+#example: testSimLink /tools/bin/bash /tools/bin/sh
+createSimLink (){
+	echo -e "$C Making symbolic link $G $1 $DEF"
+	echo -e "$G ln -vs $1 $2 $DEF"
+	ln -vs $1 $2
+}
+export -f createSimLink
+
+#function appling patch
+#parameter= full patch name
+addPatch (){
+	echo "$C Adding patch $DEF"
+	echo "$G patch -Np1 -i $SOURCES_DIR/$1 $DEF"
+	patch -Np1 -i $SOURCES_DIR/$1
+}
+export -f addPatch
+
+#function start configure
+#parameters are configure options
+c_Configure (){
+	echo "$G $PROGRAM/configure $@ $DEF" 
+	./configure $@
+}
+export -f c_Configure
+
+#function start configure with separate build
+#parameters are configure options
+c_ConfigureSep (){
+	echo "$G $PROGRAM/configure $@ $DEF" 
+	../$PROGRAM/configure $@
+}
+export -f c_Configure
+
+
+#function start make
+#parameters are make options
+c_Make (){
+	echo "$G make $@ $DEF"
+	make $@
+}
+export -f c_Make
+
+#function start make tests
+#parameters are make tests options
+c_MakeTest (){
+	#echo "for start make $@ pres 1 and enter"
+	#read MakeTests
+	if [ $MakeTests == 1 ]; then
+	  echo -e "$G make $@ $DEF"
+	  make $@
+	fi
+}
+export -f c_MakeTest
+
+#function start make-install
+#parameters are make-install options
+c_MakeInstall (){
+	echo "$G make install $@ $DEF"
+	make install $@
+}
+export -f c_MakeInstall
+
+#function remove source directory
+RMsource (){
+	echo "$C Source directory [REMOVING] $DEF"
+	echo "$G rm -rf $BUILD_DIR/$PROGRAM $DEF"
+	rm -rf $BUILD_DIR/$PROGRAM
+}
+export -f RMsource
+
+#function remove source directory and build directory
+RMbuild (){
+	echo "$C Build directory [REMOVING] $DEF"
+	echo "$R rm -rf $BUILD_DIR/$NAME-BUILD $DEF"
+	rm -rf $BUILD_DIR/$NAME-BUILD
+	echo "$C Source directory [REMOVING] $DEF"
+	echo "$R rm -rf $BUILD_DIR/$PROGRAM $DEF"
+	rm -rf $BUILD_DIR/$PROGRAM
+}
+export -f RMbuild
+
+#function copy files
+#parameter 1:  source
+#parameter 2:  destination
+copyFiles (){
+	echo "$C Coping files $DEF"
+	echo "$G cp -v $1 $2 $DEF"
+	cp -v $1 $2
+}
+export -f copyFiles
+
+copyFilesRec (){
+	echo "$C Coping files $DEF"
+	echo "$G cp -v $1 $2 $DEF"
+	cp -vr $1 $2
+}
+export -f copyFilesRec
+
+#function compare files
+#parameter 1:  first file
+#parameter 2:  second file
+#compareFiles $SCRIPTS_DIR/linker.1.test64 $TOOLS_DIR/testlink.1
+compareFiles (){
+if cmp $1 $2 &> /dev/null
+	then
+	  echo "$C Files are matching [OK] $DEF"
+	else
+	  echo "$R Linker test [FAIL] $DEF"
+	  exit 1
+    fi
+}
+export -f compareFiles
+
+#function wait for user interaction
+waitUser (){
+  if [ $WAIT == 1 ]; then
+    echo "for continue pres enter"
+    read > /dev/null
+  fi
+}
+export -f waitUser
+
+#function downloaded file given in first parametr
+download (){
+ wget --no-check-certificate -c ${1} -P ${SOURCES_DIR}/
+}
+
+export -f download
+
+#function compare md5 sums
+#it checked file given in first variable
+#then compare with md5sum given in second variable
+check(){
+  echo "$C Checking md5 checksum for file ${1} $DEF"
+  md5test=$(md5sum $SOURCES_DIR/${1} | awk '{ print $1 }')
+  if [ ${2} == ${md5test} ]; then
+    echo "$G [OK] $DEF";
+  else
+    echo "$R [FAIL] $DEF";
+    echo "$2 array value, $md5test file value"
+    echo "for continue pres enter"
+    read > /dev/null
+  fi
+}
+#function starting build
+startBuild (){
+	echo "$Y Starting Build $DEF"
+}
+export -f startBuild
+
+#function starting make
+StartMake (){
+	echo "$G Starting make $@ $DEF"
+}
+export -f StartMake
+
+#function starting make install
+StartMakeInstall (){
+	echo "$G Starting make install $@ $DEF"
+}
+export -f c_Make
+
+BASHexec=
+
+

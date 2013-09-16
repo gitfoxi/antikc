@@ -1,0 +1,67 @@
+#!/bin/bash
+
+export L_START_BUILD="$Y Starting Build $DEF"
+export L_START_BSCRI="$Y Starting build script $PROGRAM $DEF"
+export L_START_UNPACK="$Y Starting unpacking of $DEF"
+export L_START_TOOLCH="$Y Starting Adjusting toolchain $DEF"
+
+export L_FAIL_CONF="$R Configure [FAIL] $DEF"
+export L_FAIL_MAKE="$R MAKE [FAIL] $DEF"
+export L_FAIL_MAKA="$R MAKE INSTALL [FAIL] $DEF"
+export L_FAIL_BUIL="$R BUILD [FAIL] $DEF"
+export L_FAIL_MAKC="$R make check [FAIL]$DEF"
+export L_FAIL_MAKT="$R make test [FAIL] $DEF"
+export L_FAIL_LINK="$R Linker test [FAIL] $DEF"
+export L_FAIL_MMRP="$R make mrproper [FAIL] $DEF"
+export L_FAIL_MHCH="$R make headers_check [FAIL]$DEF"
+export L_FAIL="[FAIL]"
+
+export L_RM_BDIR="$C Build directory [REMOVING] $DEF"
+export L_RM_SDIR="$C Script directory [REMOVING] $DEF"
+export L_RM_ASDIR="$C Directory with source already exist $G [REMOVING] $DEF"
+export L_RM_ABDIR="$C Build directory already exist $G [REMOVING] $DEF"
+export L_RM_TFIL="$C Tempolary files [REMOVING] $DEF"
+export L_RM_UF="$C Unnecessary debuging symbols [REMOVING] $DEF"
+export L_RM_FL="$C Unnecessary librarys and documents [REMOVING] $DEF"
+export L_RM_TU="$C Temporary group [REMOVING] $DEF"
+
+export L_UN_SDIR="$C Source direcotry $G [UNPACKING] $DEF"
+
+export L_MK_BDIR="$C Making directory for separate build $DEF"
+export L_MK_LNS="$C Making symbolic link $DEF"
+export L_MK_TG="$C Making Temporary group $DEF"
+export L_MK_FIL="$C Making file $DEF"
+
+export L_AD_PATCH="$C Adding patch $DEF"
+export L_PRE_LINK="$C Preparing linker $DEF"
+export L_COP_FILES="$C Coping files $DEF"
+export L_CH_PRI="$C Changing privileges"
+export L_CH_USRR="$C Log in as root and start script"
+export L_CH_DIR="$Y Checking folders"
+export L_FX_HF="$C Fixing header file $DEF"
+export L_FX="$C Fixing"
+export L_UP_SYS="$C Moving files $DEF"
+
+export L_MV_FILGCC="$C Moving files for GCC $DEF"
+export L_MV_FIL="$C Moving files $DEF"
+
+export L_SET_CGLAG="$C Setting CFLAGS ( only for x86 ) $DEF"
+export L_SET_LINK="$C Setting linker $DEF"
+export L_SET_KEEP="$C keeped for control $DEF"
+export L_SET_LOC="$C Settings locale $DEF"
+
+export L_TEST_SPR="$Y Testing toolchain $DEF"
+
+export L_DONE_CH5="Chapter 5 IS DONE"
+export L_DONE_CON="Continue with script"
+
+export L_VAR_DIR="Directory"
+export L_VAR_EX="exist"
+export L_VAR_NEX="not exist"
+export L_VAR_SL="Symbolic link"
+export L_VAR_MF="Making file"
+export L_VAR_CONF="Configuring"
+export L_VAR_MD="Making directory"
+export L_VAR_MD="instalation issue"
+export L_VAR_VEL="$Y Stripping files $DEF"
+
