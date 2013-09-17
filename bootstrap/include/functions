@@ -287,6 +287,9 @@ export -f download
 #it checked file given in first variable
 #then compare with md5sum given in second variable
 check_quiet (){
+  if [ ${2} == "none" ]; then
+	  return 1
+  fi
   echo "$C Checking md5 checksum for file ${1} $DEF"
   md5test=$(md5sum $SOURCES_DIR/${1} | awk '{ print $1 }')
   if [ ${2} == ${md5test} ]; then
@@ -304,6 +307,9 @@ export -f check_quiet
 #it checked file given in first variable
 #then compare with md5sum given in second variable
 check(){
+  if [ ${2} == "none" ]; then
+	  return 1
+  fi
   echo "$C Checking md5 checksum for file ${1} $DEF"
   md5test=$(md5sum $SOURCES_DIR/${1} | awk '{ print $1 }')
   if [ ${2} == ${md5test} ]; then

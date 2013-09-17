@@ -11,7 +11,8 @@ source include/l10n-EN
 # source $SCRIPTS_DIR/kerberos
 
 source $SCRIPTS_DIR/openssl
-source $SCRIPTS_DIR/standard-build curl
+source $SCRIPTS_DIR/cacert
+source $SCRIPTS_DIR/curl
 source $SCRIPTS_DIR/standard-build python
 source $SCRIPTS_DIR/setuptools
 source $SCRIPTS_DIR/pip
