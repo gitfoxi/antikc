@@ -1,6 +1,8 @@
 #!/bin/bash
 
 # packagename = ( name dlink archivename foldername extension md5)
+perl=(bin/perl http://www.cpan.org/src/5.0/perl-5.18.1.tar.gz perl-5.18.1.tar.gz perl-5.18.1 gzip asdf)
+asciidoc=(bin/asciidoc http://sourceforge.net/projects/asciidoc/files/asciidoc/8.6.8/asciidoc-8.6.8.tar.gz asciidoc-8.6.8.tar.gz asciidoc-8.6.8 gzip 6ffff1ab211f30481741ce4d1e4b12bf)
 pip=(bin/pip-2.7 https://raw.github.com/pypa/pip/master/contrib/get-pip.py get-pip.py get-pip.py none 60a3d165e93999895e26b96681b65090)
 setuptools=(bin/easy_install https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py ez_setup.py ez_setup.py none 247e09677c6d3b2afb11adfaa76368e6)
 python=(bin/python2.7 http://www.python.org/ftp/python/2.7.5/Python-2.7.5.tgz Python-2.7.5.tgz Python-2.7.5 gzip b4f01a1d0ba0b46b05c73b2ac909b1df)
