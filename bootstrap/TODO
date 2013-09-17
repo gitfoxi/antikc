@@ -1,0 +1,4 @@
+
+Install Perl before git. Otherwise NO_PERL=1 hack has to be used on RHEL3.
+Install tck/tk before git if you want gitk on RHEL3 (difficult irc)
+
