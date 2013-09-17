@@ -1,7 +1,9 @@
 #!/bin/bash
 
 # packagename = ( name dlink archivename foldername extension md5)
-perl=(bin/perl http://www.cpan.org/src/5.0/perl-5.18.1.tar.gz perl-5.18.1.tar.gz perl-5.18.1 gzip 72f3f7e1c700e79bbf9d9279ca5b42d9)
+vim=(bin/vim ftp://ftp.vim.org/pub/vim/unix/vim-7.3.tar.bz2 vim-7.3.tar.bz2 vim73 bzip 5b9510a17074e2b37d8bb38ae09edbf2)
+perl=(bin/perl http://www.cpan.org/src/5.0/perl-5.18.1.tar.gz perl-5.18.1.tar.gz perl-5.18.1 gzip 304cb5bd18e48c44edd6053337d3386d)
+cacert=(ssl/ca-bundle.crt http://mxr.mozilla.org/mozilla/source/security/nss/lib/ckfw/builtins/certdata.txt?raw=1 certdata.txt?raw=1 certdata.txt?raw=1 none none)
 asciidoc=(bin/asciidoc http://sourceforge.net/projects/asciidoc/files/asciidoc/8.6.8/asciidoc-8.6.8.tar.gz asciidoc-8.6.8.tar.gz asciidoc-8.6.8 gzip 6ffff1ab211f30481741ce4d1e4b12bf)
 pip=(bin/pip-2.7 https://raw.github.com/pypa/pip/master/contrib/get-pip.py get-pip.py get-pip.py none 60a3d165e93999895e26b96681b65090)
 setuptools=(bin/easy_install https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py ez_setup.py ez_setup.py none 247e09677c6d3b2afb11adfaa76368e6)
@@ -55,7 +57,6 @@ mpc=(mpc http://www.multiprecision.org/mpc/download/mpc-0.8.2.tar.gz mpc-0.8.2.t
 mpfr=(mpfr http://www.mpfr.org/mpfr-3.0.0/mpfr-3.0.0.tar.bz2 mpfr-3.0.0.tar.bz2 mpfr-3.0.0 bzip f45bac3584922c8004a10060ab1a8f9f)
 ncurses=(Ncurses ftp://ftp.gnu.org/gnu/ncurses/ncurses-5.7.tar.gz ncurses-5.7.tar.gz ncurses-5.7 gzip cce05daf61a64501ef6cd8da1f727ec6)
 patch=(Patch http://ftp.gnu.org/gnu/patch/patch-2.6.1.tar.bz2 patch-2.6.1.tar.bz2 patch-2.6.1 bzip 0818d1763ae0c4281bcdc63cdac0b2c0)
-perl=(Perl http://www.cpan.org/src/5.0/perl-5.12.3.tar.bz2 perl-5.12.3.tar.bz2 perl-5.12.3 bzip 72f3f7e1c700e79bbf9d9279ca5b42d9)
 pkgconfig=(Pkgconfig http://pkgconfig.freedesktop.org/releases/pkg-config-0.25.tar.gz pkg-config-0.25.tar.gz pkg-config-0.25 gzip a3270bab3f4b69b7dc6dbdacbcae9745)
 procps=(Procps http://procps.sourceforge.net/procps-3.2.8.tar.gz procps-3.2.8.tar.gz procps-3.2.8 gzip 9532714b6846013ca9898984ba4cd7e0)
 psmisc=(Psmisc http://prdownloads.sourceforge.net/psmisc/psmisc-22.13.tar.gz psmisc-22.13.tar.gz psmisc-22.13 gzip e2c339e6b65b730042084023784a729e)
@@ -71,7 +72,6 @@ udev=(Udev http://www.kernel.org/pub/linux/utils/kernel/hotplug/udev-166.tar.bz2
 udevtt=(Udev-Test-Tarball http://anduin.linuxfromscratch.org/sources/other/udev-166-testfiles.tar.bz2 udev-166-testfiles.tar.bz2 udev-166-testfiles bzip 64ada14e464dee3388787e3aebf2ac34)
 udevct=(Udev-Configuration-Tarball http://www.linuxfromscratch.org/lfs/downloads/6.8/udev-config-20100128.tar.bz2 udev-config-20100128.tar.bz2 udev-config-20100128 bzip 32de4eb504b2ad67b43cb4fe16da92e2)
 utillinux=(Util-linux http://www.kernel.org/pub/linux/utils/util-linux/v2.19/util-linux-2.19.tar.bz2 util-linux-2.19.tar.bz2 util-linux-2.19 bzip 590ca71aad0b254e2631d84401f28255)
-vim=(Vim ftp://ftp.vim.org/pub/vim/unix/vim-7.3.tar.bz2 vim-7.3.tar.bz2 vim73 bzip 5b9510a17074e2b37d8bb38ae09edbf2)
 xzutils=(Xz-Utils http://tukaani.org/xz/xz-5.0.1.tar.bz2 xz-5.0.1.tar.bz2 xz-5.0.1 bzip cb6c7a58cec4d663a395c54d186ca0c6)
 zlib=(Zlib http://www.zlib.net/zlib-1.2.5.tar.bz2 zlib-1.2.5.tar.bz2 zlib-1.2.5 bzip be1e89810e66150f5b0327984d8625a0)
 

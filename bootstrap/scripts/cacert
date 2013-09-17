@@ -1,11 +1,11 @@
 #!/bin/bash
 
-NAME=bin/perl
-PROGRAM=${perl[3]}
-FILE=${perl[2]}
-EXT=${perl[4]}
-DLINK=${perl[1]}
-MD5=${perl[5]}
+NAME=${cacert[0]}
+PROGRAM=${cacert[3]}
+FILE=${cacert[2]}
+EXT=${cacert[4]}
+DLINK=${cacert[1]}
+MD5=${cacert[5]}
 
 if [ $REBUILD_ALL ]; then
     echo Building $PREFIX32/$NAME because REBUILD_ALL=$REBUILD_ALL
@@ -32,15 +32,16 @@ startBuild
 
 cd $BUILD_DIR/$PROGRAM
 {
-	./Configure -des -Dprefix=$PREFIX32 || exit 1
-	StartMake
-	waitUser
-	make || exit 1
-	waitUser
-	c_MakeTest check || exit 1
-	StartMakeInstall
-	waitUser
-	make install || exit 1
+	cp $SCRIPTS_DIR/cacert-scripts/* ./ || exit 1
+	cp "certdata.txt?raw=1" certdata.txt
+	./make-ca.sh || exit 1
+	./remove-expired-certs.sh certs
+	SSLDIR=$PREFIX32/ssl
+	install -d $SSLDIR/certs || exit 1
+	cp -v certs/*.pem $SSLDIR/certs || exit 1
+	c_rehash || exit 1
+	install BLFS-ca-bundle*.crt $SSLDIR/ca-bundle.crt || exit 1
+	ln -sv ../ca-bundle.crt $SSLDIR/certs/ca-certificates.crt
 } 2>&1 | tee $BUILD_DIR/LOG_$PROGRAM.log
 if [ $PIPESTATUS -ne 0 ]
 	then

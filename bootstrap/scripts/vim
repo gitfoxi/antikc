@@ -1,11 +1,11 @@
 #!/bin/bash
 
-NAME=bin/perl
-PROGRAM=${perl[3]}
-FILE=${perl[2]}
-EXT=${perl[4]}
-DLINK=${perl[1]}
-MD5=${perl[5]}
+NAME=${vim[0]}
+PROGRAM=${vim[3]}
+FILE=${vim[2]}
+EXT=${vim[4]}
+DLINK=${vim[1]}
+MD5=${vim[5]}
 
 if [ $REBUILD_ALL ]; then
     echo Building $PREFIX32/$NAME because REBUILD_ALL=$REBUILD_ALL
@@ -29,10 +29,10 @@ unpack ${EXT}
 waitUser
 
 startBuild
-
 cd $BUILD_DIR/$PROGRAM
 {
-	./Configure -des -Dprefix=$PREFIX32 || exit 1
+# --enable-luainterp  
+	./configure --prefix=${PREFIX32} --with-features=huge --enable-pythoninterp --enable-perlinterp --enable-tclinterp || exit 1
 	StartMake
 	waitUser
 	make || exit 1

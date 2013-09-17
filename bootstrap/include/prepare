@@ -19,6 +19,7 @@ export PATH=$PREFIX32/bin:/bin:/usr/bin
 export CC="gcc -m32"
 export CFLAGS="-m32 -I$PREFIX32/include"
 export LDFLAGS="-L$PREFIX32/lib -L/lib -L/usr/lib -Wl,-rpath,$PREFIX32/lib:/lib:/usr/lib -ldl"
+export PKG_CONFIG_PATH=$PREFIX32/lib/pkgconfig
 
 export BOOTSTRAP=$ROOT/bootstrap
 export SOURCES_DIR=$BOOTSTRAP/sources

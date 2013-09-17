@@ -1,11 +1,11 @@
 #!/bin/bash
 
-NAME=bin/perl
-PROGRAM=${perl[3]}
-FILE=${perl[2]}
-EXT=${perl[4]}
-DLINK=${perl[1]}
-MD5=${perl[5]}
+NAME=${curl[0]}
+PROGRAM=${curl[3]}
+FILE=${curl[2]}
+EXT=${curl[4]}
+DLINK=${curl[1]}
+MD5=${curl[5]}
 
 if [ $REBUILD_ALL ]; then
     echo Building $PREFIX32/$NAME because REBUILD_ALL=$REBUILD_ALL
@@ -32,7 +32,7 @@ startBuild
 
 cd $BUILD_DIR/$PROGRAM
 {
-	./Configure -des -Dprefix=$PREFIX32 || exit 1
+	./configure --prefix=${PREFIX32} --with-ca-bundle=${PREFIX32}/ssl/ca-bundle.crt || exit 1
 	StartMake
 	waitUser
 	make || exit 1

@@ -32,7 +32,7 @@ startBuild
 
 cd $BUILD_DIR/$PROGRAM
 {
-	./config --prefix=$PREFIX32 || exit 1
+	./config --prefix=$PREFIX32 shared zlib-dynamic $LDFLAGS $CFLAGS || exit 1
 	StartMake
 	waitUser
 	make || exit 1

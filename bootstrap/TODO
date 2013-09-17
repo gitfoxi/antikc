@@ -1,4 +1,9 @@
 
-Install Perl before git. Otherwise NO_PERL=1 hack has to be used on RHEL3.
+For all scripts: Don't try to download if you already have it.
 Install tck/tk before git if you want gitk on RHEL3 (difficult irc)
+
+Building vim:
+    checking if compile and link flags for Perl are sane... no: PERL DISABLED
+    need lua installed before building with --enable-lua-interp
+    consider tcl, lua, ruby, other options
 
