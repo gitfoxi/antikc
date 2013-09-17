@@ -286,6 +286,23 @@ export -f download
 #function compare md5 sums
 #it checked file given in first variable
 #then compare with md5sum given in second variable
+check_quiet (){
+  echo "$C Checking md5 checksum for file ${1} $DEF"
+  md5test=$(md5sum $SOURCES_DIR/${1} | awk '{ print $1 }')
+  if [ ${2} == ${md5test} ]; then
+    echo "$G [OK] $DEF";
+    return 1
+  else
+    echo "$R [FAIL] $DEF";
+    echo "$2 array value, $md5test file value"
+    return 0
+  fi
+}
+export -f check_quiet
+
+#function compare md5 sums
+#it checked file given in first variable
+#then compare with md5sum given in second variable
 check(){
   echo "$C Checking md5 checksum for file ${1} $DEF"
   md5test=$(md5sum $SOURCES_DIR/${1} | awk '{ print $1 }')

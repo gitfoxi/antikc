@@ -17,8 +17,8 @@ export on64=1 #only if you building 32bit on 64bit machine
 # Target 32-bit build on 32 or 64-bit redhat
 export PATH=$PREFIX32/bin:/bin:/usr/bin
 export CC="gcc -m32"
-export CFLAGS="-m32"
-export LDFLAGS="-L$PREFIX32/lib:/lib:/usr/lib -Wl,-rpath,$PREFIX32/lib:/lib:/usr/lib"
+export CFLAGS="-m32 -I$PREFIX32/include"
+export LDFLAGS="-L$PREFIX32/lib -L/lib -L/usr/lib -Wl,-rpath,$PREFIX32/lib:/lib:/usr/lib -ldl"
 
 export BOOTSTRAP=$ROOT/bootstrap
 export SOURCES_DIR=$BOOTSTRAP/sources

@@ -23,13 +23,15 @@ else
     echo Building $PREFIX32/$NAME because dont have it yet
 fi
 
-download ${DLINK}
+if [ check_quiet ${FILE} ${MD5} == 0 ]; then
+	download ${DLINK}
 
-waitUser
+	waitUser
 
-check ${FILE} ${MD5}
+	check ${FILE} ${MD5}
 
-waitUser
+	waitUser
+fi
 
 unpack ${EXT}
 
