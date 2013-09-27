@@ -3,7 +3,7 @@
 NAME=lib/libatlas.a
 PROGRAM=ATLAS
 FILE=atlas3.10.1.tar.bz2
-EXT=bzip2
+EXT=bzip
 DLINK=http://sourceforge.net/projects/math-atlas/files/Stable/3.10.1/atlas3.10.1.tar.bz2
 MD5=78753e869231cc1417a92eebaa076718
 
@@ -46,9 +46,10 @@ waitUser
 
 startBuild
 
-cd $BUILD_DIR/$PROGRAM
+mkdir $BUILD_DIR/atlas3.10.1
+cd $BUILD_DIR/atlas3.10.1
 {
-    ./configure --prefix=$PREFIX32 -b 32 --dylibs -Fa al -m32
+    ../$PROGRAM/configure --prefix=$PREFIX32 -b 32 --dylibs -Fa al -m32 --with-netlib-lapack-tarfile=$SOURCE_DIR/lapack-3.1.1.tgz
 	StartMake
 	waitUser
 	make || exit 1

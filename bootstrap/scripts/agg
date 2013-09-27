@@ -1,14 +1,11 @@
 #!/bin/bash
 
-PACKAGE_NAME=$1
-eval PACKAGE=(\${$PACKAGE_NAME\[\*\]})
-
-NAME=${PACKAGE[0]}
-PROGRAM=${PACKAGE[3]}
-FILE=${PACKAGE[2]}
-EXT=${PACKAGE[4]}
-DLINK=${PACKAGE[1]}
-MD5=${PACKAGE[5]}
+NAME=lib/libagg.a
+PROGRAM=agg-2.5
+FILE=agg-2.5.tar.gz
+EXT=gzip
+DLINK=http://www.antigrain.com/agg-2.5.tar.gz
+MD5=0229a488bc47be10a2fee6cf0b2febd6
 
 if [ $REBUILD_ALL ]; then
     echo Building $PREFIX32/$NAME because REBUILD_ALL=$REBUILD_ALL
@@ -37,8 +34,9 @@ waitUser
 
 startBuild
 
-cd $BUILD_DIR/$PROGRAM/unix
+cd $BUILD_DIR/$PROGRAM
 {
+	sh autogen.sh
 	./configure --prefix=$PREFIX32 || exit 1
 	StartMake
 	waitUser
@@ -48,8 +46,6 @@ cd $BUILD_DIR/$PROGRAM/unix
 	StartMakeInstall
 	waitUser
 	make install || exit 1
-    ln -s ./tclsh8.5 $PREFIX32/bin/tclsh || exit 1
-    ln -s ./wish8.5 $PREFIX32/bin/wish || exit 1
 } 2>&1 | tee $BUILD_DIR/LOG_$PROGRAM.log
 if [ $PIPESTATUS -ne 0 ]
 	then

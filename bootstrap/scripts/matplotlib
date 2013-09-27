@@ -1,7 +1,7 @@
 #!/bin/bash
 
-NAME=bin/numpy
-PROGRAM=numpy
+NAME=lib/python2.7/site-packages/matplotlib
+PROGRAM=matplotlib
 
 if [ $REBUILD_ALL ]; then
     echo Building $PREFIX32/$NAME because REBUILD_ALL=$REBUILD_ALL
@@ -19,6 +19,9 @@ fi
 export ATLAS=None
 export BLAS=None
 export LAPACK=None
+
+# Fix bug where it can't find freetype header
+export CFLAGS="${CFLAGS} -I/usr/include/freetype2 "
 
 rm -Rf $BUILD_DIR/$PROGRAM || exit 1
 mkdir -p $BUILD_DIR/$PROGRAM || exit 1
