@@ -1,6 +1,8 @@
 #!/bin/bash
 
 # packagename = ( name dlink archivename foldername extension md5)
+tcl=(bin/tclsh8.5 http://prdownloads.sourceforge.net/tcl/tcl8.5.9-src.tar.gz tcl8.5.9-src.tar.gz tcl8.5.9 gzip 8512d8db3233041dd68a81476906012a)
+tk=(bin/wish http://prdownloads.sourceforge.net/tcl/tk8.5.15-src.tar.gz tk8.5.15-src.tar.gz tk8.5.15 gzip 55b8e33f903210a4e1c8bce0f820657f)
 vim=(bin/vim ftp://ftp.vim.org/pub/vim/unix/vim-7.3.tar.bz2 vim-7.3.tar.bz2 vim73 bzip 5b9510a17074e2b37d8bb38ae09edbf2)
 perl=(bin/perl http://www.cpan.org/src/5.0/perl-5.18.1.tar.gz perl-5.18.1.tar.gz perl-5.18.1 gzip 304cb5bd18e48c44edd6053337d3386d)
 cacert=(ssl/ca-bundle.crt http://mxr.mozilla.org/mozilla/source/security/nss/lib/ckfw/builtins/certdata.txt?raw=1 certdata.txt?raw=1 certdata.txt?raw=1 none none)
@@ -66,7 +68,6 @@ shadow=(Shadow ftp://pkg-shadow.alioth.debian.org/pub/pkg-shadow/shadow-4.1.4.3.
 sysklogd=(Sysklogd http://www.infodrom.org/projects/sysklogd/download/sysklogd-1.5.tar.gz sysklogd-1.5.tar.gz sysklogd-1.5 gzip e053094e8103165f98ddafe828f6ae4b)
 sysvinit=(Sysvinit http://download.savannah.gnu.org/releases/sysvinit/sysvinit-2.88dsf.tar.bz2 sysvinit-2.88dsf.tar.bz2 sysvinit-2.88dsf bzip 6eda8a97b86e0a6f59dabbf25202aa6f)
 tar=(Tar http://ftp.gnu.org/gnu/tar/tar-1.25.tar.bz2 tar-1.25.tar.bz2 tar-1.25 bzip 6e497f861c77bbba2f7da4e10270995b)
-tcl=(Tcl http://prdownloads.sourceforge.net/tcl/tcl8.5.9-src.tar.gz tcl8.5.9-src.tar.gz tcl8.5.9 gzip 8512d8db3233041dd68a81476906012a)
 texinfo=(Texinfo http://ftp.gnu.org/gnu/texinfo/texinfo-4.13a.tar.gz texinfo-4.13a.tar.gz texinfo-4.13 gzip 71ba711519209b5fb583fed2b3d86fcb)
 udev=(Udev http://www.kernel.org/pub/linux/utils/kernel/hotplug/udev-166.tar.bz2 udev-166.tar.bz2 udev-166 bzip 4db27d73fdbe94f47fd89fdd105c2dfb)
 udevtt=(Udev-Test-Tarball http://anduin.linuxfromscratch.org/sources/other/udev-166-testfiles.tar.bz2 udev-166-testfiles.tar.bz2 udev-166-testfiles bzip 64ada14e464dee3388787e3aebf2ac34)

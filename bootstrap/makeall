@@ -13,10 +13,19 @@ source include/l10n-EN
 source $SCRIPTS_DIR/openssl
 source $SCRIPTS_DIR/cacert
 source $SCRIPTS_DIR/curl
+source $SCRIPTS_DIR/tcl tcl
+source $SCRIPTS_DIR/tcl tk
 source $SCRIPTS_DIR/standard-build python
 source $SCRIPTS_DIR/setuptools
 source $SCRIPTS_DIR/pip
 source $SCRIPTS_DIR/virtualenv
+source $SCRIPTS_DIR/ipython
+# atlas will install lapack
+# source $SCRIPTS_DIR/lapack
+# numpy wants atlas
+source $SCRIPTS_DIR/atlas
+source $SCRIPTS_DIR/numpy
+source $SCRIPTS_DIR/scipy
 source $SCRIPTS_DIR/perl
 source $SCRIPTS_DIR/standard-build asciidoc
 # TODO: git isn't installing manuals

@@ -1,0 +1,32 @@
+#!/bin/bash
+
+NAME=bin/numpy
+PROGRAM=numpy
+
+if [ $REBUILD_ALL ]; then
+    echo Building $PREFIX32/$NAME because REBUILD_ALL=$REBUILD_ALL
+elif [ -e $PREFIX32/$NAME ]; then
+    echo Skipping $PREFIX32/$NAME because we already have it
+    return
+else
+    echo Building $PREFIX32/$NAME because dont have it yet
+fi
+
+
+rm -Rf $BUILD_DIR/$PROGRAM || exit 1
+mkdir -p $BUILD_DIR/$PROGRAM || exit 1
+cd $BUILD_DIR/$PROGRAM
+{
+    if [ $REBUILD_ALL ]; then
+        pip reinstall $PROGRAM || exit 1
+    else
+        pip install $PROGRAM || exit 1
+    fi
+} 2>&1 | tee $BUILD_DIR/LOG_$PROGRAM.log
+if [ $PIPESTATUS -ne 0 ]
+	then
+		echo -e "$L_FAIL_BUIL"
+		exit 1
+fi  
+waitUser
+cd $ROOT

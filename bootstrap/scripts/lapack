@@ -1,0 +1,60 @@
+#!/bin/bash
+
+NAME=lib/lapack_LINUX.a
+PROGRAM=lapack-3.1.1
+FILE=lapack-3.1.1.tgz
+EXT=gzip
+DLINK=http://www.netlib.org/lapack/lapack-3.1.1.tgz
+MD5=00b21551a899bcfbaa7b8443e1faeef9
+
+if [ $REBUILD_ALL ]; then
+    echo Building $PREFIX32/$NAME because REBUILD_ALL=$REBUILD_ALL
+elif [ -e $PREFIX32/$NAME ]; then
+    echo Skipping $PREFIX32/$NAME because we already have it
+    return
+else
+    echo Building $PREFIX32/$NAME because dont have it yet
+fi
+
+check_quiet ${FILE} ${MD5}
+
+if [ $? -eq 0 ]; then
+	download ${DLINK}
+
+	waitUser
+
+	check ${FILE} ${MD5}
+
+	waitUser
+fi
+
+unpack ${EXT}
+
+waitUser
+
+startBuild
+
+cd $BUILD_DIR/$PROGRAM
+{
+    cp INSTALL/make.inc.gfortran ./make.inc
+    sed -i "s/OPTS\s*=/OPTS = -fPIC -m32 /" make.inc
+    sed -i "s/NOOPT\s*=/NOOPT = -fPIC -m32 /" make.inc
+    make blaslib || exit 1
+	StartMake
+	waitUser
+	make || exit 1
+	waitUser
+#	c_MakeTest check || exit 1
+	StartMakeInstall
+	waitUser
+#	make install || exit 1
+    # TODO: copy to lib directory
+#    cp *.a $PREFIX32/lib/
+} 2>&1 | tee $BUILD_DIR/LOG_$PROGRAM.log
+if [ $PIPESTATUS -ne 0 ]
+	then
+		echo -e "$L_FAIL_BUIL"
+		exit 1
+fi  
+waitUser
+cd $ROOT

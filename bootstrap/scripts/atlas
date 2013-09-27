@@ -1,0 +1,68 @@
+#!/bin/bash
+
+NAME=lib/libatlas.a
+PROGRAM=ATLAS
+FILE=atlas3.10.1.tar.bz2
+EXT=bzip2
+DLINK=http://sourceforge.net/projects/math-atlas/files/Stable/3.10.1/atlas3.10.1.tar.bz2
+MD5=78753e869231cc1417a92eebaa076718
+
+if [ $REBUILD_ALL ]; then
+    echo Building $PREFIX32/$NAME because REBUILD_ALL=$REBUILD_ALL
+elif [ -e $PREFIX32/$NAME ]; then
+    echo Skipping $PREFIX32/$NAME because we already have it
+    return
+else
+    echo Building $PREFIX32/$NAME because dont have it yet
+fi
+
+check_quiet lapack-3.1.1.tgz 00b21551a899bcfbaa7b8443e1faeef9
+
+if [ $? -eq 0 ]; then
+	download http://www.netlib.org/lapack/lapack-3.1.1.tgz
+
+	waitUser
+
+	check lapack-3.1.1.tgz 00b21551a899bcfbaa7b8443e1faeef9
+
+	waitUser
+fi
+
+check_quiet ${FILE} ${MD5}
+
+if [ $? -eq 0 ]; then
+	download ${DLINK}
+
+	waitUser
+
+	check ${FILE} ${MD5}
+
+	waitUser
+fi
+
+unpack ${EXT}
+
+waitUser
+
+startBuild
+
+cd $BUILD_DIR/$PROGRAM
+{
+    ./configure --prefix=$PREFIX32 -b 32 --dylibs -Fa al -m32
+	StartMake
+	waitUser
+	make || exit 1
+	waitUser
+	c_MakeTest check || exit 1
+	StartMakeInstall
+	waitUser
+	make install || exit 1
+    # TODO: copy to lib directory
+} 2>&1 | tee $BUILD_DIR/LOG_$PROGRAM.log
+if [ $PIPESTATUS -ne 0 ]
+	then
+		echo -e "$L_FAIL_BUIL"
+		exit 1
+fi  
+waitUser
+cd $ROOT

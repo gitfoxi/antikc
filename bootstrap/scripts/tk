@@ -1,0 +1,64 @@
+#!/bin/bash
+
+# call like:
+#
+#   source $SCRIPTS/standard-build python
+
+PACKAGE_NAME=$1
+eval PACKAGE=(\${$PACKAGE_NAME\[\*\]})
+
+NAME=${PACKAGE[0]}
+PROGRAM=${PACKAGE[3]}
+FILE=${PACKAGE[2]}
+EXT=${PACKAGE[4]}
+DLINK=${PACKAGE[1]}
+MD5=${PACKAGE[5]}
+
+if [ $REBUILD_ALL ]; then
+    echo Building $PREFIX32/$NAME because REBUILD_ALL=$REBUILD_ALL
+elif [ -e $PREFIX32/$NAME ]; then
+    echo Skipping $PREFIX32/$NAME because we already have it
+    return
+else
+    echo Building $PREFIX32/$NAME because dont have it yet
+fi
+
+check_quiet ${FILE} ${MD5}
+
+if [ $? -eq 0 ]; then
+	download ${DLINK}
+
+	waitUser
+
+	check ${FILE} ${MD5}
+
+	waitUser
+fi
+
+unpack ${EXT}
+
+waitUser
+
+startBuild
+
+cd $BUILD_DIR/$PROGRAM/unix
+{
+	./configure --prefix=$PREFIX32 || exit 1
+	StartMake
+	waitUser
+	make || exit 1
+	waitUser
+	c_MakeTest check || exit 1
+	StartMakeInstall
+	waitUser
+	make install || exit 1
+    ln -s ./tclsh8.5 $PREFIX32/bin/tclsh || exit 1
+    ln -s ./wish8.5 $PREFIX32/bin/wish || exit 1
+} 2>&1 | tee $BUILD_DIR/LOG_$PROGRAM.log
+if [ $PIPESTATUS -ne 0 ]
+	then
+		echo -e "$L_FAIL_BUIL"
+		exit 1
+fi  
+waitUser
+cd $ROOT

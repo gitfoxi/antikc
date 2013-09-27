@@ -17,6 +17,8 @@ cd antikc
 cd bootstrap
 ./makeall
 
+# TODO: ought to check if these lines are already in .bashrc
+# TODO: .bashrc, .profile, .bash_profile -- which one?
 echo >> ~/.bashrc
 echo source ~/antikc/antikc_env.sh >> ~/.bashrc
 source ~/antikc/antikc_env.sh

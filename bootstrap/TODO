@@ -7,3 +7,5 @@ Building vim:
     need lua installed before building with --enable-lua-interp
     consider tcl, lua, ruby, other options
 
+Numpy:
+    fails because gfortran tries to build x86_64 targets. Do I need to build gfortran? Or can the system one by made to see reason?
