@@ -13,6 +13,7 @@ source include/l10n-EN
 source $SCRIPTS_DIR/openssl
 source $SCRIPTS_DIR/cacert
 source $SCRIPTS_DIR/curl
+source $SCRIPTS_DIR/standard-build wget
 source $SCRIPTS_DIR/sqlite
 source $SCRIPTS_DIR/tcl tcl
 source $SCRIPTS_DIR/tcl tk

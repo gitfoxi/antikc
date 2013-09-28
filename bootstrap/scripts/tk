@@ -48,8 +48,11 @@ cd $BUILD_DIR/$PROGRAM/unix
 	StartMakeInstall
 	waitUser
 	make install || exit 1
+	make install-private-headers || exit 1
     ln -s ./tclsh8.5 $PREFIX32/bin/tclsh || exit 1
     ln -s ./wish8.5 $PREFIX32/bin/wish || exit 1
+    ln -s ./libtcl8.5.so $PREFIX32/lib/libtcl.so || exit 1
+    ln -s ./libtk8.5.so $PREFIX32/lib/libtk.so || exit 1
 } 2>&1 | tee $BUILD_DIR/LOG_$PROGRAM.log
 if [ $PIPESTATUS -ne 0 ]
 	then

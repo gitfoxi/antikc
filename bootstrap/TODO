@@ -12,16 +12,12 @@ Building vim:
 * ipython notebook wants pyzmq - SOCK_CLOEXEC undeclared
 * wget - to fix --no-check-certificate
 
-Matplotlib
-try: link libtcl.so -> libtcl8.5.so, libtk.so -> libtk8.5.so
-try: setup.cfg 
-	basedirlist = /home/quantenna/michaelf/93000/antikc/32bit,/usr
-try: CFLAGS="${CFLAGS} -I/usr/include/freetype2"
-and after all that it segfaults in Tcl_CreateCommand in libtcl.so
-
-... getting closer ...
-
 * Split installation for RHEL3 and RHEL5.
 * Use 32-bit anaconda for RHEL5 as shortcut to lots of good packages
 * Bootstrapping in a different directory such as a device directory
     * May do as the anaconda installer and install to `/opt/anaconda1anaconda2` replacing this string with the real location to make a moveable feast.
+* octave -- maybe. RHEL3 has octave. RHEL5 is missing octave.
+* pytables
+* scipy -- requires fortran
+* wget -- requires gnutls, libnettle, gmp
+

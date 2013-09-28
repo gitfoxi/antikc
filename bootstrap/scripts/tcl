@@ -52,6 +52,7 @@ cd $BUILD_DIR/$PROGRAM/unix
 	StartMakeInstall
 	waitUser
 	make install || exit 1
+	make install-private-headers || exit 1
 } 2>&1 | tee $BUILD_DIR/LOG_$PROGRAM.log
 if [ $PIPESTATUS -ne 0 ]
 	then
