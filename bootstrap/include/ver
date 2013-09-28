@@ -1,6 +1,14 @@
 #!/bin/bash
 
 # packagename = ( name dlink archivename foldername extension md5)
+libgpg_error=(lib/libgpg-error.so ftp://ftp.gnupg.org/gcrypt/libgpg-error/libgpg-error-1.12.tar.bz2 libgpg-error-1.12.tar.bz2 libgpg-error-1.12 bzip 8f0eb41a344d19ac2aa9bd101dfb9ce6)
+gnupg=(bin/gpg ftp://ftp.gnupg.org/gcrypt/gnupg/gnupg-1.4.14.tar.bz2 gnupg-1.4.14.tar.bz2 gnupg-1.4.14 bzip 99dede468204cb6ee22de7e3e3772ab1)
+libgcrypt=(lib/libgcrypt.so ftp://ftp.gnupg.org/gcrypt/libgcrypt/libgcrypt-1.5.3.tar.bz2 libgcrypt-1.5.3.tar.bz2 libgcrypt-1.5.3 bzip 993159b2924ae7b0e4eaff0743c2db35)
+libtool=(bin/libtool http://mirror.sdunix.com/gnu/libtool/libtool-2.4.tar.gz libtool-2.4.tar.gz libtool-2.4 gzip b32b04148ecdd7344abc6fe8bd1bb021)
+xz=(bin/xz http://tukaani.org/xz/xz-5.0.5.tar.gz xz-5.0.5.tar.gz xz-5.0.5 gzip 19d924e066b6fff0bc9d1981b4e53196)
+gnutls=(lib/libgnutls.a ftp://ftp.gnutls.org/gcrypt/gnutls/v3.1/gnutls-3.1.14.tar.xz gnutls-3.1.14.tar.xz gnutls-3.1.14 xz 0c68ab04c41fcafaad033d17434510b5)
+gmplib=(lib/libgmp.a ftp://ftp.gnu.org/gnu/gmp/gmp-5.1.2.tar.bz2 gmp-5.1.2.tar.bz2 gmp-5.1.2 bzip 7e3516128487956cd825fef01aafe4bc)
+libnettle=(lib/libnettle.so http://www.lysator.liu.se/~nisse/archive/nettle-2.7.tar.gz nettle-2.7.tar.gz nettle-2.7 gzip 2caa1bd667c35db71becb93c5d89737f)
 wget=(bin/wget http://ftp.gnu.org/gnu/wget/wget-1.14.tar.gz wget-1.14.tar.gz wget-1.14 gzip 12edc291dba8127f2e9696e69f36299e)
 sqlite=(lib/libsqlite3.a http://www.sqlite.org/2013/sqlite-autoconf-3080002.tar.gz sqlite-autoconf-3080002.tar.gz sqlite-autoconf-3080002 gzip 6d6cc639a4da04fbbdda7b1a1a01b386)
 tcl=(bin/tclsh8.5 http://prdownloads.sourceforge.net/tcl/tcl8.5.15-src.tar.gz tcl8.5.15-src.tar.gz tcl8.5.15 gzip f3df162f92c69b254079c4d0af7a690f)
@@ -50,7 +58,7 @@ iproute2=(IPRoute2 http://devresources.linuxfoundation.org/dev/iproute2/download
 kbd=(Kbd http://www.kernel.org/pub/linux/utils/kbd/kbd-1.15.2.tar.gz kbd-1.15.2.tar.gz kbd-1.15.2 gzip 77d0b51454522bc6c170bbdc6e31202a)
 less=(Less http://www.greenwoodsoftware.com/less/less-436.tar.gz less-436.tar.gz less-436 gzip 817bf051953ad2dea825a1cdf460caa4)
 lfsootscripts=(LFS-Bootscripts http://www.linuxfromscratch.org/lfs/downloads/6.8/lfs-bootscripts-20100627.tar.bz2 lfs-bootscripts-20100627.tar.bz2 lfs-bootscripts-20100627 bzip 8260bdb271caa3b538f8e95f65998864)
-libtool=(Libtool http://ftp.gnu.org/gnu/libtool/libtool-2.4.tar.gz libtool-2.4.tar.gz libtool-2.4 gzip b32b04148ecdd7344abc6fe8bd1bb021)
+# libtool=(Libtool http://ftp.gnu.org/gnu/libtool/libtool-2.4.tar.gz libtool-2.4.tar.gz libtool-2.4 gzip b32b04148ecdd7344abc6fe8bd1bb021)
 linux=(Linux http://www.kernel.org/pub/linux/kernel/v2.6/linux-2.6.37.tar.bz2 linux-2.6.37.tar.bz2 linux-2.6.37 bzip c8ee37b4fdccdb651e0603d35350b434) 
 M4=(M4 http://ftp.gnu.org/gnu/m4/m4-1.4.15.tar.bz2 m4-1.4.15.tar.bz2 m4-1.4.15 bzip c7c32540bc3842d5550f88d47ef551d8)
 make=(Make http://ftp.gnu.org/gnu/make/make-3.82.tar.bz2 make-3.82.tar.bz2 make-3.82 bzip 1a11100f3c63fcf5753818e59d63088f)
@@ -75,7 +83,7 @@ udev=(Udev http://www.kernel.org/pub/linux/utils/kernel/hotplug/udev-166.tar.bz2
 udevtt=(Udev-Test-Tarball http://anduin.linuxfromscratch.org/sources/other/udev-166-testfiles.tar.bz2 udev-166-testfiles.tar.bz2 udev-166-testfiles bzip 64ada14e464dee3388787e3aebf2ac34)
 udevct=(Udev-Configuration-Tarball http://www.linuxfromscratch.org/lfs/downloads/6.8/udev-config-20100128.tar.bz2 udev-config-20100128.tar.bz2 udev-config-20100128 bzip 32de4eb504b2ad67b43cb4fe16da92e2)
 utillinux=(Util-linux http://www.kernel.org/pub/linux/utils/util-linux/v2.19/util-linux-2.19.tar.bz2 util-linux-2.19.tar.bz2 util-linux-2.19 bzip 590ca71aad0b254e2631d84401f28255)
-xzutils=(Xz-Utils http://tukaani.org/xz/xz-5.0.1.tar.bz2 xz-5.0.1.tar.bz2 xz-5.0.1 bzip cb6c7a58cec4d663a395c54d186ca0c6)
+# xzutils=(Xz-Utils http://tukaani.org/xz/xz-5.0.1.tar.bz2 xz-5.0.1.tar.bz2 xz-5.0.1 bzip cb6c7a58cec4d663a395c54d186ca0c6)
 zlib=(Zlib http://www.zlib.net/zlib-1.2.5.tar.bz2 zlib-1.2.5.tar.bz2 zlib-1.2.5 bzip be1e89810e66150f5b0327984d8625a0)
 
 #patches

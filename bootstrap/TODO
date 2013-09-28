@@ -20,4 +20,9 @@ Building vim:
 * pytables
 * scipy -- requires fortran
 * wget -- requires gnutls, libnettle, gmp
+* Better handling of missing scripts and other build faiures -- should stop on build failure
+* "make check" everything -- option to do while building or do it later
+* Download All script -- in case you're not able to download packages from your build location
+* script to check that all `bin` and `lib` objects are 32-bit
+* may need new libtool to compile gnutls on RHEL3
 

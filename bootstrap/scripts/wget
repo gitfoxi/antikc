@@ -1,11 +1,14 @@
 #!/bin/bash
 
-NAME=${openssl[0]}
-PROGRAM=${openssl[3]}
-FILE=${openssl[2]}
-EXT=${openssl[4]}
-DLINK=${openssl[1]}
-MD5=${openssl[5]}
+PACKAGE_NAME=wget
+eval PACKAGE=(\${$PACKAGE_NAME\[\*\]})
+
+NAME=${PACKAGE[0]}
+PROGRAM=${PACKAGE[3]}
+FILE=${PACKAGE[2]}
+EXT=${PACKAGE[4]}
+DLINK=${PACKAGE[1]}
+MD5=${PACKAGE[5]}
 
 if [ $REBUILD_ALL ]; then
     echo Building $PREFIX32/$NAME because REBUILD_ALL=$REBUILD_ALL
@@ -16,13 +19,17 @@ else
     echo Building $PREFIX32/$NAME because dont have it yet
 fi
 
-download ${DLINK}
+check_quiet ${FILE} ${MD5}
 
-waitUser
+if [ $? -eq 0 ]; then
+	download ${DLINK}
 
-check ${FILE} ${MD5}
+	waitUser
 
-waitUser
+	check ${FILE} ${MD5}
+
+	waitUser
+fi
 
 unpack ${EXT}
 
@@ -32,7 +39,8 @@ startBuild
 
 cd $BUILD_DIR/$PROGRAM
 {
-	setarch i386 ./config -m32 --prefix=$PREFIX32 shared zlib-dynamic $LDFLAGS $CFLAGS || exit 1
+	./configure --with-ssl=openssl --disable-nls --disable-ipv6 --prefix=$PREFIX32 || exit 1
+    sed -i Makefile ": doc : :"
 	StartMake
 	waitUser
 	make || exit 1

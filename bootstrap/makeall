@@ -10,18 +10,33 @@ source include/l10n-EN
 # kerberos is a complicated build. Do I really need it now?
 # source $SCRIPTS_DIR/kerberos
 
+# Old-ass RHEL has broken and missing crypt which git and wget need
 source $SCRIPTS_DIR/openssl
 source $SCRIPTS_DIR/cacert
+# Old-ass RHEL doesn't have xz
+source $SCRIPTS_DIR/standard-build xz
+source $SCRIPTS_DIR/standard-build libtool
+source $SCRIPTS_DIR/standard-build gmplib
+source $SCRIPTS_DIR/standard-build libnettle
+source $SCRIPTS_DIR/gnutls
 source $SCRIPTS_DIR/curl
-source $SCRIPTS_DIR/standard-build wget
+source $SCRIPTS_DIR/standard-build libgpg_error
+source $SCRIPTS_DIR/gcrypt
+source $SCRIPTS_DIR/standard-build gnupg
+source $SCRIPTS_DIR/wget
+# Python uses sqlite
 source $SCRIPTS_DIR/sqlite
+# TCL and Tk for gitk and matplotlib
 source $SCRIPTS_DIR/tcl tcl
 source $SCRIPTS_DIR/tcl tk
 source $SCRIPTS_DIR/standard-build python
+# So you can get more python toys
 source $SCRIPTS_DIR/setuptools
 source $SCRIPTS_DIR/pip
 source $SCRIPTS_DIR/virtualenv
+# TODO: Change all pip installs to download a specific version for stability sake
 source $SCRIPTS_DIR/ipython
+# TODO: Turns out we'll need LAPACK and BLAS after all before scipy
 # atlas will install lapack
 # source $SCRIPTS_DIR/lapack
 # numpy wants atlas

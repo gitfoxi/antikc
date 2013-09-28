@@ -17,6 +17,8 @@ if [ $1 == bzip ]; then
       unpackBzip
   elif [ $1 == gzip ]; then
       unpackGzip
+  elif [ $1 == xz ]; then
+      unpackXz
   elif [ $1 == none ]; then
       unpackNoCompression
   else
@@ -65,6 +67,21 @@ unpackNoCompression (){
 }
 
 export -f unpackNoCompression
+#Function unpacking archive
+unpackXz (){
+	echo "$Y Starting build script $PROGRAM $DEF";
+
+	if [ -d $BUILD_DIR/$PROGRAM ]; then
+	  echo "$C Directory with source already exist $G [REMOVING] $DEF"
+	  echo "$G rm -rf $BUILD_DIR/$PROGRAM $DEF"
+	  rm -rf $BUILD_DIR/$PROGRAM
+	fi
+  echo "$C Source directory $G [UNPACKING] $DEF"
+  echo "$G xzcat $SOURCES_DIR/$FILE | tar x -C $BUILD_DIR/ $DEF"
+  xzcat $SOURCES_DIR/$FILE | tar x -C $BUILD_DIR/ 
+}
+export -f unpackXz
+
 #Function unpacking archive
 unpackGzip (){
 	echo "$Y Starting build script $PROGRAM $DEF";
