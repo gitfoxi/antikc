@@ -9,11 +9,13 @@ export PREFIX32=$ROOT/32bit
 export PREFIX64=$ROOT/32bit
 export CC="setarch i386 gcc -m32"
 export CFLAGS="-m32 -I$PREFIX32/include"
+export CPPFLAGS=$CFLAGS
 export LDFLAGS="-L$PREFIX32/lib -L/lib -L/usr/lib -Wl,-rpath,$PREFIX32/lib:/lib:/usr/lib -ldl"
 export SHARED_LDFLAGS="-L$PREFIX32/lib -L/lib -L/usr/lib -Wl,-rpath,$PREFIX32/lib:/lib:/usr/lib -ldl"
 export PKG_CONFIG_PATH=$PREFIX32/lib/pkgconfig
 export OPTS=-fPIC
 export ABI=32
+export FFLAGS=-m32
 
 # This is what you really need for runtime
 export PATH=$HOME/antikc/32bit/bin:$PATH

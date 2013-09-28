@@ -33,6 +33,7 @@ cd $BUILD_DIR/$PROGRAM
 {
 # --enable-luainterp  
 	./configure --prefix=${PREFIX32} --with-features=huge --enable-pythoninterp --enable-perlinterp --enable-tclinterp || exit 1
+    sed -i src/auto/config.mk "s:-lieee: :"
 	StartMake
 	waitUser
 	make || exit 1

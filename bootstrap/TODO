@@ -1,17 +1,13 @@
 
-For all scripts: Don't try to download if you already have it.
-Install tck/tk before git if you want gitk on RHEL3 (difficult irc)
+* lua 5.1
+* python3
 
 Building vim:
     checking if compile and link flags for Perl are sane... no: PERL DISABLED
     need lua installed before building with --enable-lua-interp
     consider tcl, lua, ruby, other options
 
-* Sqlite before ipython
-* matplotlib needs a backend - says tk.h could not be found
 * ipython notebook wants pyzmq - SOCK_CLOEXEC undeclared
-* wget - to fix --no-check-certificate
-
 * Split installation for RHEL3 and RHEL5.
 * Use 32-bit anaconda for RHEL5 as shortcut to lots of good packages
 * Bootstrapping in a different directory such as a device directory
@@ -19,10 +15,12 @@ Building vim:
 * octave -- maybe. RHEL3 has octave. RHEL5 is missing octave.
 * pytables
 * scipy -- requires fortran
-* wget -- requires gnutls, libnettle, gmp
 * Better handling of missing scripts and other build faiures -- should stop on build failure
 * "make check" everything -- option to do while building or do it later
 * Download All script -- in case you're not able to download packages from your build location
 * script to check that all `bin` and `lib` objects are 32-bit
-* may need new libtool to compile gnutls on RHEL3
-
+* Option (or default) to build in `/tmp/`. Building on NFS can have weird effects when timestamps are checked. Perl keeps thinking Makefile is out of date wrt Makefile.PL
+* Octave needs fortran -- who knew fortran was such a big deal?
+* hdf5 before octave
+* building vim: remove -lieee from TCL options in src/auto/config.mk
+* vim is missing my ~/.vimrc -- well ntk.vim anyway -- oh wait, it's not included with Antikc yet.

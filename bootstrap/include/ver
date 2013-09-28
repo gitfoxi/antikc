@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # packagename = ( name dlink archivename foldername extension md5)
+octave=(bin/octave  ftp://ftp.gnu.org/gnu/octave/octave-3.6.4.tar.bz2 octave-3.6.4.tar.bz2 octave-3.6.4 bzip e0d3e5e3d38a66d3f8593ba065c6e2fd)
 libgpg_error=(lib/libgpg-error.so ftp://ftp.gnupg.org/gcrypt/libgpg-error/libgpg-error-1.12.tar.bz2 libgpg-error-1.12.tar.bz2 libgpg-error-1.12 bzip 8f0eb41a344d19ac2aa9bd101dfb9ce6)
 gnupg=(bin/gpg ftp://ftp.gnupg.org/gcrypt/gnupg/gnupg-1.4.14.tar.bz2 gnupg-1.4.14.tar.bz2 gnupg-1.4.14 bzip 99dede468204cb6ee22de7e3e3772ab1)
 libgcrypt=(lib/libgcrypt.so ftp://ftp.gnupg.org/gcrypt/libgcrypt/libgcrypt-1.5.3.tar.bz2 libgcrypt-1.5.3.tar.bz2 libgcrypt-1.5.3 bzip 993159b2924ae7b0e4eaff0743c2db35)

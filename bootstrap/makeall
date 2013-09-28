@@ -27,8 +27,8 @@ source $SCRIPTS_DIR/wget
 # Python uses sqlite
 source $SCRIPTS_DIR/sqlite
 # TCL and Tk for gitk and matplotlib
-source $SCRIPTS_DIR/tcl tcl
-source $SCRIPTS_DIR/tcl tk
+source $SCRIPTS_DIR/tcl
+source $SCRIPTS_DIR/tk
 source $SCRIPTS_DIR/standard-build python
 # So you can get more python toys
 source $SCRIPTS_DIR/setuptools
@@ -52,6 +52,7 @@ source $SCRIPTS_DIR/standard-build asciidoc
 # TODO: git isn't installing manuals
 source $SCRIPTS_DIR/standard-build git
 source $SCRIPTS_DIR/vim
+source $SCRIPTS_DIR/standard-build octave
 
 echo "Success"
 echo "To start over from scratch, run like:"
