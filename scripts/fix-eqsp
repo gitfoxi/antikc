@@ -1,0 +1,51 @@
+#!/usr/bin/env python
+
+import sys
+from shutil import copyfile
+import re
+from tempfile import mkstemp
+import os
+
+if len(sys.argv) !=2:
+    print "usage: fixeqsp timing_or_levels_file"
+
+filename = sys.argv[1]
+backup_filename = filename + '.fixeqsp.bak'
+(fd, extra_backup_filename) = mkstemp()
+os.close(fd)
+copyfile(filename, backup_filename)
+copyfile(filename, extra_backup_filename)
+
+find_eqsp = re.compile('(.*)(EQSP\s+[^,\s]+\s*,\s*[^,\s]+\s*,\s*)#9(\d{9})(.*)',re.DOTALL)
+
+f = open(backup_filename)
+w = open(filename, 'w')
+in_eqsp = False
+
+for l in f:
+    m = find_eqsp.match(l)
+    if not in_eqsp:
+        if m:
+            (pre, eqsp, tnbytes, post) = m.groups()
+            in_eqsp = True
+            eqsp_l = [post]
+            w.write(pre)
+        else:  # no match
+            w.write(l)
+    else:  # in_eqsp
+        s = l.split('@')
+        if(len(s) == 2):
+            in_eqsp = False
+            eqsp_l.append(s[0])
+            eqsp_l.append('@')
+            eqsp_s = ''.join(eqsp_l)
+            w.write('%s#9%09d' % (eqsp, len(eqsp_s)))
+            w.write(eqsp_s)
+            w.write(s[1])
+        elif(len(s) == 1):
+            eqsp_l.append(l)
+        else:
+            assert False, 'Expect only one @ per line'
+
+f.close()
+w.close()
