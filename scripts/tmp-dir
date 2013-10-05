@@ -1,0 +1,12 @@
+#!/usr/bin/env python2.7
+
+"""
+tmp-dir
+
+Print the name of the 93k temporary directory which contains all sorts of
+interesting temporary files used by the environment."""
+
+from os import popen
+
+with popen('ls -1rtd /var/opt/hp93000/soc/tmp/93k.*') as p:
+    print [l for l in p][-1].strip()
