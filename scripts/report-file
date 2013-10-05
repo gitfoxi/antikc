@@ -1,0 +1,15 @@
+#!/usr/bin/env python2.7
+
+"""
+report-file
+
+Print the name of the 93k report file for the current session. You might want
+to follow it in your terminal with:
+
+    tail -f `report-file`
+"""
+
+from os import popen
+
+with popen('ls -1rt /var/opt/hp93000/soc/tmp/93k.*/ReportFile') as p:
+    print [l for l in p][-1].strip()
